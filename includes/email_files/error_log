@@ -1,0 +1,1 @@
+[28-Jun-2016 10:17:18 America/New_York] PHP Fatal error:  Call to undefined function BuildDNSTXTRR() in /home/weatyisz/public_html/rentincity/includes/email_files/sendemail.php on line 120

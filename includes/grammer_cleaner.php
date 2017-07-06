@@ -1,0 +1,1 @@
+<?php $prepositions = array('a','an','the','for','in','are','is','as','on','from','by','but','at','like', 'of', 'with', 'within','rent','rented', 'who','what','where','new', 'all','and');
