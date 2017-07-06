@@ -47,7 +47,7 @@ include_once 'head.php';?>
                                             
                                             <li class="item item-2 col-lg-3 col-md-6 col-sm-6 col-xs-6"><a
                                                     href="#"> <span aria-hidden="true"
-                                                                              class="icon icon_box-checked"></span> <span class="data">3426</span>
+                                                                              class="icon icon_box-checked"></span> <span class="data">67523</span>
                                                     <span class="desc">Successful <br>Sent
                                                     </span>
                                                 </a></li>
