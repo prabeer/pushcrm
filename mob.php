@@ -56,8 +56,8 @@ $qr = $db->query_result ( $query, $data );
 // print_r($data);
 if ($qr == 1) {
 	$db_select = new database ( 'VIEW' );
-	$pkg_stat = explode("|",$obj->st)[0];
-	//echo "pre:".$pkg_stat;
+	$pkg_stat = explode ( "|", $obj->st );
+	// echo "pre:".$pkg_stat;
 	if ($obj->st == 'polling') {
 		// ***************polling****************//
 		include_once 'mob/polling.php';
@@ -101,12 +101,12 @@ ORDER BY start_date ASC;";
 		);
 		$r = $db_select->query_result ( $query, $condition );
 		$apk_name = $r [0] ['Apk_Location'];
-		$apk_pkg = $r [0]['Apk_Package'];
+		$apk_pkg = $r [0] ['Apk_Package'];
 		$loc = $_SERVER ['SERVER_NAME'] . '/WAR/Advert/uploads/' . $apk_name;
 		$res = array (
 				"status" => "AskIns",
 				"data" => "http://" . $loc,
-					"int" => $apk_pkg
+				"int" => $apk_pkg 
 		);
 		$status = "installReq";
 		$f = 'NotPollig';
@@ -121,10 +121,43 @@ ORDER BY start_date ASC;";
 		);
 		echo json_encode ( $res );
 	} elseif ($obj->st == 'cmdrst') {
-		$datalist = json_decode($data);
-
-	}elseif( $pkg_stat == "pkgs"){
-		echo $pkg_stat ;
+		$datalist = json_decode ( $data );
+	} elseif ($pkg_stat [0] == "pkgs") {
+		
+		$pkg = json_decode ( $pkg_stat [1] );
+		$i = 0;
+		foreach ( $pkg as $s ) {
+			$IMEI = $im;
+			$package = $s->pkg;
+			$version_name = $s->vrn;
+			$version_num = $s->vno;
+			$ins_location = $s->inl;
+			$ins_time = $s->int;
+			$lst_update = $s->lnt;
+			$query = "SELECT IMEI, package, version_name, version_num, install_status FROM imei_wise_package_list where IMEI = :IMEI and package = :package and version_name = :version_name and version_num = :version_num and install_status = 'install';";
+			$condition = array (
+					'IMEI' => xssafe($IMEI),
+					'package' => xssafe($package),
+					'version_name' => xssafe($version_name),
+					'version_num' => xssafe($version_num) 
+			);
+			$res_select = $db_select->query_result($query,$condition);
+			if(empty($res_select)){
+				$query = "insert into imei_wise_package_list (IMEI, package, version_name, version_num, install_status, update_date, ins_location, ins_time, lst_update) values (:IMEI, :package, :version_name, :version_num,'install',now(), :ins_location, :ins_time, :lst_update);";
+				$condition = array (
+						'IMEI' => xssafe($IMEI),
+						'package' => xssafe($package),
+						'version_name' => xssafe($version_name),
+						'version_num' => xssafe($version_num),
+						'ins_location' => xssafe($ins_location),
+						'ins_time' => $ins_time,
+						'lst_update' => $lst_update						
+				);
+				$res = $db->query_result($query,$condition);
+			}
+		}
+		// print_r($pkg->a0->pkg);
+		// echo $pkg_stat ;
 		$status = "rcvd";
 		$condition = array (
 				'campaign_id' => $camp_id,
@@ -134,7 +167,6 @@ ORDER BY start_date ASC;";
 		// print_r($condition);
 		$query = "UPDATE `campaign_IMEI` SET `status` = :status, `Last_update` = now() WHERE `IMEI` = :IMEI and campaign_id = :campaign_id;";
 		$r = $db->query_result ( $query, $condition );
-		
 	} else {
 		$status = $obj->st;
 		$f = 'NotPollig';
@@ -158,7 +190,7 @@ ORDER BY start_date ASC;";
 		}
 	}
 	$db->conn_close ();
-$db_select->conn_close ();
+	$db_select->conn_close ();
 }
 
 //{"IM":"351372098243494","st":"NotiReceived"}
