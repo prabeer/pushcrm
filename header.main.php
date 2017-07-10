@@ -4,8 +4,8 @@
     <header class="header">
         <div class="branding float-left">
             <h1 class="logo text-center">
-                <a href="index.php"><span class="nav-label"> W<span
-                            class="highlight">A</span>TR
+                <a href="index.php"><span class="nav-label"> PUSH<span
+                           
                     </span> </a>
             </h1>
         </div>

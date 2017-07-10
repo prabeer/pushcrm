@@ -33,6 +33,25 @@ echo "					</a></li>\n";
 echo "\n";
 echo "				</ul></li>\n";
 
+echo "			<li class=\" \"><a href=#\"> <span aria-hidden=\"true\"\n";
+echo "					class=\"icon icon_documents_alt\"></span> <span class=\"nav-label\">Settings\n";
+echo "						</span>\n";
+echo "					<span class=\"fa arrow\"></span>\n";
+echo "			</a>\n";
+echo "				<ul class=\"sub-menu\">\n";
+
+echo "					<li class=\" \"><a href=\"project_add.php\"> <span class=\"nav-label\">\n";
+echo "								Add Project</span>\n";
+echo "					</a></li>\n";
+echo "					<li class=\" \"><a href=\"region_add.php\"> <span class=\"nav-label\">\n";
+echo "								Add Region</span>\n";
+echo "					</a></li>\n";
+echo "					<li class=\" \"><a href=\"create_user.php\"> <span class=\"nav-label\">\n";
+echo "								Manage Users</span>\n";
+echo "					</a></li>\n";
+
+echo "\n";
+echo "				</ul></li>\n";
 echo "			<li class=\" \"><a href=Item Barcode\"> <span aria-hidden=\"true\"\n";
 echo "					class=\"icon icon_documents_alt\"></span> <span class=\"nav-label\">Reports\n";
 echo "						</span>\n";
@@ -40,13 +59,11 @@ echo "					<span class=\"fa arrow\"></span>\n";
 echo "			</a>\n";
 echo "				<ul class=\"sub-menu\">\n";
 
-echo "					<li class=\" \"><a href=\"InstallApk.php\"> <span class=\"nav-label\">\n";
+echo "					<li class=\" \"><a href=\"Reports.php?re=imei\"> <span class=\"nav-label\">\n";
 echo "								Imei Wise Package List</span>\n";
 echo "					</a></li>\n";
 echo "\n";
 echo "				</ul></li>\n";
-
-
 
 // echo " <li class=\" \"><a href=\"todoList.php\"> <span aria-hidden=\"true\"\n";
 // echo " class=\"icon icon_calendar\"></span> <span class=\"nav-label\">To Do List</span>\n";
