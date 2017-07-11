@@ -11,7 +11,7 @@ if (isset ( $_POST ['desc'] )) {
 	$description = $_POST ['desc'];
 }
 if (isset ( $_POST ['tac_code'] )) {
-	$select_list = preg_replace ( '/[^0-9],/', "", $_POST ['tac_code']);
+	$tac_code = explode(',', preg_replace ( '/[^0-9],/', "", $_POST ['tac_code']));
 }
 
 if (isset ( $_POST ['IMEI'] )) {
