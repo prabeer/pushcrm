@@ -28,13 +28,13 @@ $query = "SELECT
 FROM
     camp_count;";
 /*
-WHERE
-    campaign_type = :campaign_type;";
-
-$condition = array (
-		'campaign_type' => 'AppInstall' 
-);
-*/
+ * WHERE
+ * campaign_type = :campaign_type;";
+ *
+ * $condition = array (
+ * 'campaign_type' => 'AppInstall'
+ * );
+ */
 $tab = $select_data->query_result ( $query );
 
 ?>
