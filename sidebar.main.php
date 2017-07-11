@@ -40,7 +40,7 @@ echo "					<span class=\"fa arrow\"></span>\n";
 echo "			</a>\n";
 echo "				<ul class=\"sub-menu\">\n";
 
-echo "					<li class=\" \"><a href=\"project_add.php\"> <span class=\"nav-label\">\n";
+echo "					<li class=\" \"><a href=\"project.php\"> <span class=\"nav-label\">\n";
 echo "								Add Project</span>\n";
 echo "					</a></li>\n";
 echo "					<li class=\" \"><a href=\"region_add.php\"> <span class=\"nav-label\">\n";

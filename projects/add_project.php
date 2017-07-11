@@ -1,10 +1,3 @@
-<?php include_once 'head.php';?>
-<?php include_once 'header.main.php';?>
-	<?php
-	
-	include_once 'sidebar.main.php';
-	
-	?>
 <div id="content-wrapper" class="content-wrapper view">
 	<div class="container-fluid">
 		<h2 class="view-title">Add Projects</h2>
@@ -70,5 +63,3 @@
 		</div>
 	</div>
 </div>
-<?php include_once 'footer.php';?>
-
