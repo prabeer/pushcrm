@@ -1,6 +1,6 @@
 <?php
 $apk_name = $a ['Apk_Location'];
-$loc = $_SERVER ['SERVER_NAME'] . '/WAR/Advert/uploads/' . $apk_name;
+$loc = $_SERVER ['SERVER_NAME'] . '/pushapp/Advert/uploads/' . $apk_name;
 $apk_package = "";
 if (isset ( $a ['Apk_Package'] )) {
 	$apk_package = $a ['Apk_Package'];

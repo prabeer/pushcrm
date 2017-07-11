@@ -49,6 +49,9 @@ echo "					</a></li>\n";
 echo "					<li class=\" \"><a href=\"create_user.php\"> <span class=\"nav-label\">\n";
 echo "								Manage Users</span>\n";
 echo "					</a></li>\n";
+echo "					<li class=\" \"><a href=\"adv_settings.php\"> <span class=\"nav-label\">\n";
+echo "								Advanced Settings</span>\n";
+echo "					</a></li>\n";
 
 echo "\n";
 echo "				</ul></li>\n";
@@ -59,7 +62,7 @@ echo "					<span class=\"fa arrow\"></span>\n";
 echo "			</a>\n";
 echo "				<ul class=\"sub-menu\">\n";
 
-echo "					<li class=\" \"><a href=\"Reports.php?re=imei\"> <span class=\"nav-label\">\n";
+echo "					<li class=\" \"><a href=\"Reports.php?re=IMEI\"> <span class=\"nav-label\">\n";
 echo "								Imei Wise Package List</span>\n";
 echo "					</a></li>\n";
 echo "\n";

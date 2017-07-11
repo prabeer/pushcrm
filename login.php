@@ -51,7 +51,7 @@ if (isset ( $_SESSION ['userid'] )) {
 					class="form-box col-md-8 col-sm-12 col-xs-12 col-md-offset-2 col-sm-offset-0 xs-offset-0">
 					<h1 class="form-box-heading text-center">
 						<span class="pe-icon pe-7s-box2 icon"></span><span
-							class="highlight">WeAttach</span>Robot
+							class="highlight">Campaign</span>Management
 					</h1>
 
 					<div class="form-box-inner">
@@ -117,8 +117,8 @@ if (isset ( $_SESSION ['userid'] )) {
 
 			</div>
 
-			<div class="copyright text-center">&copy; 2016 - WeAttach
-				Technologies</div>
+			<div class="copyright text-center">&copy; 2016 - Panasonic
+				India Pvt Limited</div>
 		</div>
 
 	</section>

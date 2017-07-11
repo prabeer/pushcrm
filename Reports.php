@@ -20,18 +20,51 @@
 				class="module-wrapper masonry-item col-lg-9 col-md-9 col-sm-12 col-xs-12">
 				<?php
 				
-if ($report_type == 'IMEI') {
+				if ($report_type == 'IMEI') {
 					$report_type = 'IMEI Wise Package List';
 					$query = 'SELECT distinct(IMEI) IMEI, count(*) package_count FROM weattach_crm.imei_wise_package_list group by IMEI limit 100;';
 					$data = $report_db->query_result ( $query );
+					$query = "SELECT `s_no`,
+    `IMEI`,
+    `package`,
+    `version_name`,
+    `version_num`,
+    `install_status`,
+    `update_date`
+FROM `imei_wise_package_list`;";
+					$r_name = 'IMEI_Wise_Package_List';
+					$query_val = $report_db->query_result ( $query );
+					$i = 0;
+					foreach ( $query_val [0] as $key => $val ) {
+						$head [$i] = $key;
+						$i ++;
+					}
+					array_unshift ( $query_val, $head );
+					$date = date ( "YmdHis" );
+					$filename = $r_name . '_' . $date . ".xlsx";
+				//	header('Content-disposition: attachment; filename="'.XLSXWriter::sanitize_filename($filename).'"');
+				//	header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+				//	header('Content-Transfer-Encoding: binary');
+				//	header('Cache-Control: must-revalidate');
+				//	header('Pragma: public');
+					$writer = new XLSXWriter ();
+					$writer->setAuthor ( 'WeAttach' );
+					$writer->writeSheet ( $query_val, 'Sheet1' );
+					// $writer->writeToStdOut();
+					$writer->writeToFile ( 'reports/' . $filename );
+					// echo $writer->writeToString();
+					$arr = [
+							'file_name' => 'reports/' . $filename
+					];
 					?>
 				 	
 				<section class="module module-headings">
 					<div class="module-inner">
 						<div class="module-heading">
 							<h3 class="module-title"><?php echo $report_type;?></h3>
-							<ul class="actions list-inline" >
-							<li><a herf="#"><button type="button" class="btn btn-primary">Download</button></a></li>
+							
+							<ul class="actions list-inline">
+								<li><a herf="#" download onclick="window.location.assign('<?php echo $arr['file_name']?>');"><button type="button" class="btn btn-primary">Download</button></a></li>
 								<li><a class="collapse-module" data-toggle="collapse"
 									href="#content-4" aria-expanded="false"
 									aria-controls="content-4"><span aria-hidden="true"
@@ -57,7 +90,7 @@ if ($report_type == 'IMEI') {
 										<tbody>
 <?php
 					
-foreach ( $data as $d ) {
+					foreach ( $data as $d ) {
 						echo '<tr><td></td><td>' . $d ['IMEI'] . '</td><td>' . $d ['package_count'] . '</td>';
 					}
 					?>
