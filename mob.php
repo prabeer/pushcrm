@@ -33,6 +33,11 @@ if (isset ( $obj->cel )) {
 } else {
 	$cel = "";
 }
+if (isset ( $obj->dvc )) {
+	$modal = $obj->dvc;
+} else {
+	$modal = "";
+}
 $status = "";
 if (isset ( $obj->ci )) {
 	$camp_id = $obj->ci;
@@ -42,13 +47,14 @@ if (isset ( $obj->dt )) {
 }
 $f = "";
 
-$query = "insert into polling (IMEI, TimeStamp, status, gps_loc, mcc_mnc, cell_id) values (:IMEI, now(),:status,:gps_loc,:mcc_mnc, :cell_id);";
+$query = "insert into polling (IMEI, TimeStamp, status, gps_loc, mcc_mnc, cell_id, modal_name) values (:IMEI, now(),:status,:gps_loc,:mcc_mnc, :cell_id, :modal);";
 $data = array (
 		"IMEI" => $im,
 		"status" => $st,
 		"gps_loc" => $loc,
 		"mcc_mnc" => $mcc,
-		"cell_id" => $cel 
+		"cell_id" => $cel,
+		"modal" => $modal
 );
 $qr = $db->query_result ( $query, $data );
 

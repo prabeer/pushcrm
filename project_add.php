@@ -7,7 +7,7 @@
 	?>
 <div id="content-wrapper" class="content-wrapper view">
 	<div class="container-fluid">
-		<h2 class="view-title">Reports</h2>
+		<h2 class="view-title">Add Projects</h2>
 		<div id="masonry" class="row">
 			<div class="col-wrapper col-lg-8 col-md-7 col-sm-12 col-xs-12">
 				<section class="module module-headings">
