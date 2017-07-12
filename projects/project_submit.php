@@ -11,7 +11,7 @@ if (isset ( $_POST ['desc'] )) {
 	$description = $_POST ['desc'];
 }
 if (isset ( $_POST ['tac_code'] )) {
-	$tac_code = explode(',', preg_replace ( '/[^0-9],/', "", $_POST ['tac_code']));
+	$tac_code = explode ( ',', preg_replace ( '/[^0-9],/', "", $_POST ['tac_code'] ) );
 }
 
 if (isset ( $_POST ['IMEI'] )) {
@@ -34,10 +34,16 @@ $res = $add_insert->query_result ( $query, $condition );
 // echo $query;
 
 if ($res == 1) {
-	
-		redirect ( '../project.php?r=success' );
+	foreach ( $tac_code as $t ) {
+		$query = "select MAX(s_no) id from project_details";
+		$camp_res = $select_data->query_result ( $query );
+		$camp_id = "";
+		if (count ( $camp_res ) == 1) {
+			$camp_id = $camp_res [0] ['id'];
+		}
 	}
- else {
+	redirect ( '../project.php?r=success' );
+} else {
 	echo $res;
 }
 
