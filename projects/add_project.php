@@ -131,8 +131,7 @@ FROM
 							echo '<td>' . $t ['s_no'] . '</td>';
 							echo '<td>' . $t ['project_name'] . '</td>';
 							echo '<td> <a href="update_project.php?id=' . $t ['s_no'] . '">Edit</a></td>';
-							echo '<td>' . $t ['fail_count'] . '</td>';
-							echo '<td>' . $t ['complete_count'] . '</td>';
+						
 							echo '</tr>';
 						}
 						?>

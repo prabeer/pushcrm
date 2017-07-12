@@ -103,7 +103,7 @@ if (isset ( $_SESSION ['userid'] )) {
 
 									<li>The software is intended for use only by Panasonic
 										Employees</li>
-									<li>This software is a proprietary of Weattach Technologies</li>
+									<li>This software is a proprietary of Panasonic India Pvt Ltd</li>
 
 
 								</ul>

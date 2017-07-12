@@ -34,13 +34,20 @@ $res = $add_insert->query_result ( $query, $condition );
 // echo $query;
 
 if ($res == 1) {
+	
+	$query = "select MAX(s_no) id from project_details";
+	$camp_res = $select_data->query_result ( $query );
+	$camp_id = "";
+	if (count ( $camp_res ) == 1) {
+		$camp_id = $camp_res [0] ['id'];
+	}
 	foreach ( $tac_code as $t ) {
-		$query = "select MAX(s_no) id from project_details";
-		$camp_res = $select_data->query_result ( $query );
-		$camp_id = "";
-		if (count ( $camp_res ) == 1) {
-			$camp_id = $camp_res [0] ['id'];
-		}
+		$query = 'INSERT INTO `project_tac` (`project_id`, `project_tac_code`) VALUES (:project_id, :project_tac_code)';
+		$condition = array (
+				'project_id' => $camp_id,
+				'project_tac_code' => $t 
+		);
+		$add_insert->query_result ( $query, $condition );
 	}
 	redirect ( '../project.php?r=success' );
 } else {
