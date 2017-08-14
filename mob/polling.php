@@ -39,7 +39,7 @@ if (count ( $r ) > 0) {
 	foreach ( $r as $a ) {
 		$status = $a ['status'];
 		$camp = $a ['campaign_type'];
-		
+		$camp_id = $a ['campaign_id'];
 		if ($camp == 'AppInstall') {
 			include_once 'mob/appinstall.php';
 		} elseif ($camp == 'Notification') {
@@ -54,6 +54,6 @@ if (count ( $r ) > 0) {
 		}
 	}
 }else{
-	$res = array('status'=>'ok','data'=>'null');
+	$res = array('status'=>'ok','data'=>'null', 'camp_id'=>'0');
 			echo json_encode($res);
 }

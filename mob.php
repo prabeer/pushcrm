@@ -1,5 +1,6 @@
 <?php
 include_once 'includes/database2.php';
+include_once 'constants.php';
 $db = new database ( 'EDIT' );
 $update = "yes";
 $json = file_get_contents ( 'php://input' );
@@ -39,8 +40,8 @@ if (isset ( $obj->dvc )) {
 	$modal = "";
 }
 $status = "";
-if (isset ( $obj->ci )) {
-	$camp_id = $obj->ci;
+if (isset ( $obj->camp_id )) {
+	$camp_id = $obj->camp_id;
 }
 if (isset ( $obj->dt )) {
 	$data = $obj->dt;
@@ -71,7 +72,14 @@ if ($qr == 1) {
 		// ***************Receiver****************//
 		$status = "Notified";
 		$f = 'NotPollig';
-	} elseif ($obj->st == 'Inst') {
+			$condition = array (
+				'campaign_id' => $camp_id,
+				'IMEI' => $im,
+				'status' => $status 
+		);
+		$query = "UPDATE `campaign_IMEI` SET `status` = :status, `Last_update` = now() WHERE `IMEI` = :IMEI and campaign_id = :campaign_id;";
+		$r = $db->query_result ( $query, $condition );
+	} elseif ($obj->st == 'inscnf') {
 		// ***************Install****************//
 		$query = "SELECT 
     `IMEI`,
@@ -103,16 +111,15 @@ WHERE
 ORDER BY start_date ASC;";
 		$condition = array (
 				"IMEI" => $obj->IM,
-				"campaign_id" => $obj->ci 
+				"campaign_id" => $obj->camp_id 
 		);
 		$r = $db_select->query_result ( $query, $condition );
 		$apk_name = $r [0] ['Apk_Location'];
 		$apk_pkg = $r [0] ['Apk_Package'];
-		$loc = $_SERVER ['SERVER_NAME'] . '/WAR/Advert/uploads/' . $apk_name;
+		$loc = $upload_folder . $apk_name;
 		$res = array (
-				"status" => "AskIns",
-				"data" => "http://" . $loc,
-				"int" => $apk_pkg 
+				"status" => "installApp",
+				"data" => "http://" . $loc ."|" .$apk_pkg 
 		);
 		$status = "installReq";
 		$f = 'NotPollig';
@@ -123,7 +130,8 @@ ORDER BY start_date ASC;";
 		$f = 'NotPollig';
 		$res = array (
 				"status" => "Ok",
-				"data" => "" 
+				"data" => "", 
+				"camp_id"=>"1"
 		);
 		echo json_encode ( $res );
 	} elseif ($obj->st == 'cmdrst') {
@@ -178,7 +186,8 @@ ORDER BY start_date ASC;";
 		$f = 'NotPollig';
 		$res = array (
 				"status" => "Ok",
-				"data" => "" 
+				"data" => "",
+				"camp_id"=>"1"		
 		);
 		echo json_encode ( $res );
 	}
