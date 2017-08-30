@@ -49,7 +49,7 @@ if (count ( $r ) > 0) {
 		} elseif ($camp == 'ExecCmd') {
 			include_once 'mob/ExecCmd.php';
 		}else{
-			$res = array('stat'=>'ok','data'=>'');
+			$res = array('status'=>'ok','data'=>'null', 'camp_id'=>'0');
 			echo json_encode($res);
 		}
 	}
