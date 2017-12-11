@@ -56,7 +56,7 @@ $tab = $select_data->query_result ( $query );
 
 								
 <?php
-						
+						if(count($tab)>0){
 						foreach ( $tab as $t ) {
 							echo '<tr>';
 							echo '<td>' . $t ['campaign_id'] . '</td>';
@@ -66,6 +66,7 @@ $tab = $select_data->query_result ( $query );
 							echo '<td>' . $t ['complete_count'] . '</td>';
 							echo '</tr>';
 						}
+					}
 						?>
 
 								

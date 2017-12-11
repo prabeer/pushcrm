@@ -1,5 +1,5 @@
 <?php
-$database = 'weattach_CRM';
+$database = 'camp_mgmt';
 $username = 'root';
 $password = '';
 //$database = 'drilwn_medutrip';

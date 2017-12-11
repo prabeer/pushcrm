@@ -3,13 +3,13 @@
 
 if ($status == 'start') {
 	
+	if($cmd == 'pulldata'){
 	$res = array (
-			"status" => "execcmd",
-			"data" => array (
-					"camp_id" => $a ['campaign_id'],
-					"cmd" => $a ['Apk_Location']
-			) 
+			"status" => "pulldata",
+			"data" => "",
+			"camp_id" => $camp_id
 	);
 	echo json_encode ( $res );
+	}
 }
 ?>

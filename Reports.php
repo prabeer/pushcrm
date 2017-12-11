@@ -22,7 +22,7 @@
 				
 				if ($report_type == 'IMEI') {
 					$report_type = 'IMEI Wise Package List';
-					$query = 'SELECT distinct(IMEI) IMEI, count(*) package_count FROM weattach_crm.imei_wise_package_list group by IMEI limit 100;';
+					$query = 'SELECT distinct(IMEI) IMEI, count(*) package_count FROM imei_wise_package_list group by IMEI limit 100;';
 					$data = $report_db->query_result ( $query );
 					$query = "SELECT `s_no`,
     `IMEI`,
@@ -48,7 +48,7 @@ FROM `imei_wise_package_list`;";
 				//	header('Cache-Control: must-revalidate');
 				//	header('Pragma: public');
 					$writer = new XLSXWriter ();
-					$writer->setAuthor ( 'WeAttach' );
+					$writer->setAuthor ( 'Panasonic' );
 					$writer->writeSheet ( $query_val, 'Sheet1' );
 					// $writer->writeToStdOut();
 					$writer->writeToFile ( 'reports/' . $filename );

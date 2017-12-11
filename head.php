@@ -57,9 +57,9 @@ if (isset ( $_SESSION ['username'] )) {
 		$uri_check = implode ( "", $uri_arr );
 	}
 	
-	//echo '<span style="color:white;">'.$uri_check.'</span>';
+	// echo '<span style="color:white;">'.$uri_check.'</span>';
 	
-	if (($uri_check == $ar.'INDEX.PHP')||($uri_check == $ar.'ADVERT_DASHBOARD.PHP')) {
+	if (($uri_check == $ar . 'INDEX.PHP') || ($uri_check == $ar . 'ADVERT_DASHBOARD.PHP')) {
 		?>
 <link rel="stylesheet" href="assets/css/bootstrap.css">
 <link rel="stylesheet" href="assets/css/metisMenu.css">
@@ -75,7 +75,7 @@ if (isset ( $_SESSION ['username'] )) {
 <!-- --- -->
 
 <?php
-	} elseif (($uri_check == $ar.'PROJECTLIST.PHP')) {
+	} elseif (($uri_check == $ar . 'PROJECTLIST.PHP')) {
 		?>
 <link rel="stylesheet" href="assets/css/bootstrap.css">
 <link rel="stylesheet" href="assets/css/metisMenu.css">
@@ -89,7 +89,7 @@ if (isset ( $_SESSION ['username'] )) {
 <link rel="stylesheet" href="assets/css/styles.css">
 <link rel="stylesheet" href="assets/css/projects.css">
 	<?php
-	} elseif ($uri_check == $ar.'CREATEPROJECT.PHP') {
+	} elseif ($uri_check == $ar . 'CREATEPROJECT.PHP') {
 		
 		?>
 <link rel="stylesheet" href="assets/css/bootstrap.css">
@@ -104,12 +104,13 @@ if (isset ( $_SESSION ['username'] )) {
 <link rel="stylesheet" href="assets/css/jstree-default.css">
 <link rel="stylesheet" href="assets/css/styles.css">
 			<?php
-	}elseif ($uri_check == $ar.'INSTALLAPK.PHP') {
+	} elseif ($uri_check == $ar . 'INSTALLAPK.PHP') {
 		
 		?>
 
 <link rel="stylesheet" href="assets/css/bootstrap.css">
-<link href="plugins/fileupload/cssfileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+<link href="plugins/fileupload/cssfileinput.min.css" media="all"
+	rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="assets/css/metisMenu.css">
 <link rel="stylesheet" href="assets/css/font-awesome.css">
 <link rel="stylesheet" href="assets/css/elegant-icons.css">
@@ -119,9 +120,11 @@ if (isset ( $_SESSION ['username'] )) {
 <link rel="stylesheet" href="assets/css/bootstrap3-wysihtml5.css">
 <link rel="stylesheet" href="assets/css/tether-shepherd.css">
 <link rel="stylesheet" href="assets/css/jstree-default.css">
+<link rel="stylesheet" href="assets/css/jquery.fileupload.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
 <link rel="stylesheet" href="assets/css/styles.css">
 			<?php
-	} elseif (($uri_check == $ar.'CREATEPROJECT2.PHP') || ($uri_check == $ar.'MODIFYPROJECT2.PHP')) {
+	} elseif (($uri_check == $ar . 'CREATEPROJECT2.PHP') || ($uri_check == $ar . 'MODIFYPROJECT2.PHP')) {
 		
 		?>
 <link rel="stylesheet" href="assets/css/bootstrap.css">
@@ -148,7 +151,7 @@ if (isset ( $_SESSION ['username'] )) {
 <link rel="stylesheet" href="assets/css/jstree-default.css">
 <link rel="stylesheet" href="assets/css/styles.css">
 			<?php
-	} elseif (($uri_check == $ar.'CREATEPROJECT3.PHP') || ($uri_check == $ar.'MODIFYPROJECT3.PHP')) {
+	} elseif (($uri_check == $ar . 'CREATEPROJECT3.PHP') || ($uri_check == $ar . 'MODIFYPROJECT3.PHP')) {
 		
 		?>
 <link rel="stylesheet" href="assets/css/bootstrap.css">
@@ -165,7 +168,7 @@ if (isset ( $_SESSION ['username'] )) {
 <link rel="stylesheet" href="assets/css/styles.css">
 <link rel="stylesheet" href="assets/css/project.css">
 			<?php
-	} elseif ($uri_check == $ar.'MODIFYPROJECT.PHP') {
+	} elseif ($uri_check == $ar . 'MODIFYPROJECT.PHP') {
 		?>
 <link rel="stylesheet" href="assets/css/bootstrap.css">
 <link rel="stylesheet" href="assets/css/metisMenu.css">
@@ -178,7 +181,7 @@ if (isset ( $_SESSION ['username'] )) {
 <link rel="stylesheet" href="assets/css/jstree-default.css">
 <link rel="stylesheet" href="assets/css/styles.css">
 		<?php
-	} elseif (($uri_check == $ar.'ADDNEWUSER.PHP') || ($uri_check == $ar.'ASSIGNRIGHTS.PHP') || ($uri_check == $ar.'ADDNEWGROUP.PHP') || ($uri_check == $ar.'MODPROJECT.PHP')) {
+	} elseif (($uri_check == $ar . 'ADDNEWUSER.PHP') || ($uri_check == $ar . 'ASSIGNRIGHTS.PHP') || ($uri_check == $ar . 'ADDNEWGROUP.PHP') || ($uri_check == $ar . 'MODPROJECT.PHP')) {
 		?>
 	<link rel="stylesheet" href="assets/css/bootstrap.css">
 <link rel="stylesheet" href="assets/css/metisMenu.css">
@@ -194,7 +197,7 @@ if (isset ( $_SESSION ['username'] )) {
 <link rel="stylesheet" href="assets/css/account.css">
 		
 <?php
-	} elseif (($uri_check == $ar.'PROJECTDETAILS.PHP') || ($uri_check == $ar.'TESTCASEDETAILS.PHP')) {
+	} elseif (($uri_check == $ar . 'PROJECTDETAILS.PHP') || ($uri_check == $ar . 'TESTCASEDETAILS.PHP')) {
 		
 		?>
 	
@@ -212,7 +215,7 @@ if (isset ( $_SESSION ['username'] )) {
 <link rel="stylesheet" href="assets/css/project.css">
 		
 	<?php
-	} elseif (($uri_check == $ar.'USERDETAIL.PHP') || ($uri_check == $ar.'GROUPDETAILS.PHP')) {
+	} elseif (($uri_check == $ar . 'USERDETAIL.PHP') || ($uri_check == $ar . 'GROUPDETAILS.PHP')) {
 		?>
 	<link rel="stylesheet" href="assets/css/bootstrap.css">
 <link rel="stylesheet" href="assets/css/metisMenu.css">
@@ -226,7 +229,7 @@ if (isset ( $_SESSION ['username'] )) {
 <link rel="stylesheet" href="assets/css/styles.css">
 <link rel="stylesheet" href="assets/css/member.css">
 	<?php
-	} elseif (($uri_check == $ar.'USERLIST.PHP') || ($uri_check == $ar.'GROUPLIST.PHP')) {
+	} elseif (($uri_check == $ar . 'USERLIST.PHP') || ($uri_check == $ar . 'GROUPLIST.PHP')) {
 		?>
 	<link rel="stylesheet" href="assets/css/bootstrap.css">
 <link rel="stylesheet" href="assets/css/metisMenu.css">
@@ -241,7 +244,7 @@ if (isset ( $_SESSION ['username'] )) {
 <link rel="stylesheet" href="assets/css/members.css">
 	
 	<?php
-	} elseif ($uri_check == $ar.'USERMESSAGES.PHP') {
+	} elseif ($uri_check == $ar . 'USERMESSAGES.PHP') {
 		?>
 		<link rel="stylesheet" href="assets/css/bootstrap.css">
 <link rel="stylesheet" href="assets/css/metisMenu.css">
@@ -255,7 +258,7 @@ if (isset ( $_SESSION ['username'] )) {
 <link rel="stylesheet" href="assets/css/styles.css">
 <link rel="stylesheet" href="assets/css/account.css">
 		<?php
-	} elseif ($uri_check == $ar.'ACTIVITYLOGS.PHP') {
+	} elseif ($uri_check == $ar . 'ACTIVITYLOGS.PHP') {
 		?> 
 		<link rel="stylesheet" href="assets/css/bootstrap.css">
 <link rel="stylesheet" href="assets/css/metisMenu.css">
@@ -268,7 +271,7 @@ if (isset ( $_SESSION ['username'] )) {
 <link rel="stylesheet" href="assets/css/styles.css">
 <link rel="stylesheet" href="assets/css/activities.css">
 		<?php
-	} elseif (($uri_check == $ar.'BUGLIST.PHP') || ($uri_check == $ar.'TESTCASEAPPROVAL.PHP') || ($uri_check == $ar.'TESTCASELIST.PHP') || ($uri_check == $ar.'PROJECTTESTCASE.PHP')) {
+	} elseif (($uri_check == $ar . 'BUGLIST.PHP') || ($uri_check == $ar . 'TESTCASEAPPROVAL.PHP') || ($uri_check == $ar . 'TESTCASELIST.PHP') || ($uri_check == $ar . 'PROJECTTESTCASE.PHP')) {
 		?> 
 		<link rel="stylesheet" href="assets/css/bootstrap.css">
 <link rel="stylesheet" href="assets/css/metisMenu.css">
@@ -283,7 +286,7 @@ if (isset ( $_SESSION ['username'] )) {
 <link rel="stylesheet" href="assets/css/tickets.css">
 		
 		<?php
-	} elseif ($uri_check == $ar.'DRIVE.PHP') {
+	} elseif ($uri_check == $ar . 'DRIVE.PHP') {
 		?><link rel="stylesheet" href="assets/css/bootstrap.css">
 <link rel="stylesheet" href="assets/css/metisMenu.css">
 <link rel="stylesheet" href="assets/css/font-awesome.css">
@@ -295,7 +298,7 @@ if (isset ( $_SESSION ['username'] )) {
 <link rel="stylesheet" href="assets/css/styles.css">
 <link rel="stylesheet" href="assets/css/account.css">
  <?php
-	} elseif ($uri_check == $ar.'TODOLIST.PHP') {
+	} elseif ($uri_check == $ar . 'TODOLIST.PHP') {
 		?>
 	<link rel="stylesheet" href="assets/css/bootstrap.css">
 <link rel="stylesheet" href="assets/css/metisMenu.css">
@@ -308,7 +311,7 @@ if (isset ( $_SESSION ['username'] )) {
 <link rel="stylesheet" href="assets/css/styles.css">	
 		
 		<?php
-	} elseif ($uri_check == $ar.'CALENDAR.PHP') {
+	} elseif ($uri_check == $ar . 'CALENDAR.PHP') {
 		?>
 		<link rel="stylesheet" href="assets/css/bootstrap.css">
 <link rel="stylesheet" href="assets/css/metisMenu.css">
@@ -325,7 +328,7 @@ if (isset ( $_SESSION ['username'] )) {
 		
 		
 		<?php
-	} elseif ($uri_check == $ar.'TESTCASEUPLOADER.PHP') {
+	} elseif ($uri_check == $ar . 'TESTCASEUPLOADER.PHP') {
 		?>
 		<link rel="stylesheet" href="assets/css/bootstrap.css">
 <link rel="stylesheet" href="assets/css/metisMenu.css">
@@ -343,7 +346,7 @@ if (isset ( $_SESSION ['username'] )) {
 		
 		
 		<?php
-	} elseif ($uri_check == $ar.'PROJECTDISCUSSIONS.PHP') {
+	} elseif ($uri_check == $ar . 'PROJECTDISCUSSIONS.PHP') {
 		?>
 		<link rel="stylesheet" href="assets/css/bootstrap.css">
 <link rel="stylesheet" href="assets/css/metisMenu.css">
@@ -358,7 +361,7 @@ if (isset ( $_SESSION ['username'] )) {
 <link rel="stylesheet" href="assets/css/discussion.css">
 		
 		 <?php
-	} elseif ($uri_check == $ar.'PROJECTINVENTRYLIST.PHP') {
+	} elseif ($uri_check == $ar . 'PROJECTINVENTRYLIST.PHP') {
 		?> <link rel="stylesheet" href="assets/css/bootstrap.css">
 <link rel="stylesheet" href="assets/css/metisMenu.css">
 <link rel="stylesheet" href="assets/css/font-awesome.css">
@@ -370,7 +373,7 @@ if (isset ( $_SESSION ['username'] )) {
 <link rel="stylesheet" href="assets/css/jstree-default.css">
 <link rel="stylesheet" href="assets/css/styles.css">
 <link rel="stylesheet" href="assets/css/invoices.css"><?php
-	} elseif ($uri_check == $ar.'PROJECTINVENTRY.PHP') {
+	} elseif ($uri_check == $ar . 'PROJECTINVENTRY.PHP') {
 		?>
 		<link rel="stylesheet" href="assets/css/bootstrap.css">
 <link rel="stylesheet" href="assets/css/metisMenu.css">
@@ -385,7 +388,7 @@ if (isset ( $_SESSION ['username'] )) {
 <link rel="stylesheet" href="assets/css/styles.css">
 <link rel="stylesheet" href="assets/css/tickets.css">
 		<?php
-	} elseif (($uri_check == $ar.'BUGLISTNEW.PHP')) {
+	} elseif (($uri_check == $ar . 'BUGLISTNEW.PHP')) {
 		?> 
 		<link rel="stylesheet" href="assets/css/bootstrap.css">
 <link rel="stylesheet" href="assets/css/metisMenu.css">
@@ -402,7 +405,7 @@ if (isset ( $_SESSION ['username'] )) {
 <link rel="stylesheet" href="assets/css/tickets.css">
 		
 		<?php
-	} elseif ($uri_check == $ar.'INVENTRYMANAGER.PHP') {
+	} elseif ($uri_check == $ar . 'INVENTRYMANAGER.PHP') {
 		?>
 	<link rel="stylesheet" href="assets/css/bootstrap.css">
 <link rel="stylesheet" href="assets/css/metisMenu.css">
@@ -428,9 +431,10 @@ if (isset ( $_SESSION ['username'] )) {
 <link rel="stylesheet" href="assets/css/jstree-default.css">
 <link rel="stylesheet" href="assets/css/styles.css">	
 		<?php
-	} else {
+	} elseif ($uri_check == $ar . 'DATA_FILTER.PHP') {
 		?>
-	<link rel="stylesheet" href="assets/css/bootstrap.css">
+<link rel="stylesheet" href="assets/css/bootstrap.css">
+<link rel="stylesheet" href="assets/css/tokenize2.css">
 <link rel="stylesheet" href="assets/css/metisMenu.css">
 <link rel="stylesheet" href="assets/css/font-awesome.css">
 <link rel="stylesheet" href="assets/css/elegant-icons.css">
@@ -442,8 +446,20 @@ if (isset ( $_SESSION ['username'] )) {
 <link rel="stylesheet" href="assets/css/styles.css">
 <link rel="stylesheet" href="assets/css/dashboard-projects.css">
 	<?php
-	}
-	?>
+	} else {
+		?>
+		<link rel="stylesheet" href="assets/css/bootstrap.css">
+<link rel="stylesheet" href="assets/css/metisMenu.css">
+<link rel="stylesheet" href="assets/css/font-awesome.css">
+<link rel="stylesheet" href="assets/css/elegant-icons.css">
+<link rel="stylesheet" href="assets/css/pe-7-icons.css">
+<link rel="stylesheet" href="assets/css/pe-7-icons-helper.css">
+<link rel="stylesheet" href="assets/css/jquery-jvectormap.css">
+<link rel="stylesheet" href="assets/css/tether-shepherd.css">
+<link rel="stylesheet" href="assets/css/jstree-default.css">
+<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="assets/css/dashboard-projects.css">
+<?php }?>
 
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>

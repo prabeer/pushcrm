@@ -1,14 +1,15 @@
 <?php
+include_once 'constants.php';
 if ($status == 'start') {
 	if($camp_id != NULL ){
 if(isset($a['Noti_Banner'])){
-	$banner = 'http://'.$_SERVER ['SERVER_NAME'] . '/pushapp/Advert/uploads/' .$a['Noti_Banner'];
+	$banner = 'http://'.$upload_folder . $a['Noti_Banner'];
 }else{
 	$banner = "";
 }
 
 if(isset($a['Noti_Icon'])){
-	$app_icon = 'http://'.$_SERVER ['SERVER_NAME'] . '/pushapp/Advert/uploads/' .$a['Noti_Icon'];
+	$app_icon = 'http://'.$upload_folder.$a['Noti_Icon'];
 }else{
 	$app_icon = "";
 }

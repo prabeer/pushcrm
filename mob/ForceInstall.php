@@ -11,8 +11,7 @@ if ($status == 'start') {
 	$res = array (
 			"status" => "forceins",
 			"camp_id" => $a ['campaign_id'],
-			"data" => "http://" . $loc,
-			"pkg" => $apk_package			
+			"data" => "http://" . $loc."|"$apk_package		
 	);
 	echo json_encode ( $res );
 } elseif ($status == 'install') {

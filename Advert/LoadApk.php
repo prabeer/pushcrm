@@ -2,9 +2,33 @@
 	class="module-wrapper masonry-item col-lg-6 col-md-6 col-sm-12 col-xs-12">
 	<section class="module">
 		<div class="module-inner">
+		<?php
+if (isset($_GET['r'])) {
+    if ($_GET['r'] == 'success') {
+        ?>
+				    <div class="alert alert-success">
+				<a href="#" class="close" data-dismiss="alert">&times;</a> <strong>Success!</strong>
+				Campaign loaded successfully.
+			</div>
+				    <?php
+    } elseif ($_GET['r'] == 'fail') {
+        ?>
+           <div class="alert alert-danger">
+				<a href="#" class="close" data-dismiss="alert">&times;</a> <strong>Failed!</strong>
+				Campaign Not Loaded.
+			</div>
+        
+        <?php
+    }
+}
+?>
+		
 			<div class="module-heading">
+
 				<h3 class="module-title">Upload Apk</h3>
+
 				<ul class="actions list-inline">
+
 					<li><a class="collapse-module" data-toggle="collapse"
 						href="#content-12" aria-expanded="false"
 						aria-controls="content-12"><span aria-hidden="true"
@@ -13,7 +37,7 @@
 							class="icon icon_close"></span></a></li>
 				</ul>
 			</div>
-
+<?php include_once 'listProjects.php';?>
 			<div class="module-content collapse in" id="content-12">
 				<div class="module-content-inner">
 					<div class="form-horizontal">
@@ -27,34 +51,150 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-sm-3 control-label">Select Type:</label>
+									<label class="col-sm-3 control-label">Select Modals:</label>
 									<div class="col-sm-9">
-										<select class="chosen form-control"
-											data-placeholder="Choose a Inventry Type"
-											style="width: 240px;" name="method_type" id="inventry_type">
-											<option value="">Please select</option>
-											<option value="Project">Project</option>
-											<option value="Region">Region</option>
-											<option value="Oper">Operator</option>
-											<option value="IMEI">IMEI</option>
+										<div class="col-sm-3">
+											<div class="checkbox">
+												<label><input type="checkbox" value="modals" name="list[]">Modals</label>
+											</div>
 
-										</select>
+										</div>
+										<div class="col-sm-6">
+											<select class="chosen form-control"
+												data-placeholder="Choose a Inventry Type" name="select_list_modals"
+												id="inventry_type">
+												<option value="%">--Select All Modals--</option>
+												<?php 
+												foreach (getModalList() as $modal){
+												    echo '<option value="'.$modal['modal_name'].'">'.$modal['modal_name'].'</option>';
+												}
+												?>
+											</select>
+										</div>
+										<div class="col-sm-3">
+											<select class="chosen form-control"
+												data-placeholder="Choose a Inventry Type" name="select_flag_modal"
+												id="inventry_type">
+												<option value="OR">OR</option>
+												<option value="AND"  >AND</option>
+											</select>
+										</div>
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-sm-3 control-label">Select List:</label>
+									<label class="col-sm-3 control-label">Select Region:</label>
 									<div class="col-sm-9">
-										<select class="chosen form-control"
-											data-placeholder="Choose a Inventry Type"
-											style="width: 240px;" name="select_list" id="inventry_type">
-											<option value="">Please Project</option>
-											<option value="Project">Project1</option>
-											<option value="Region">Project2</option>
-											<option value="Oper">Project3</option>
-											<option value="IMEI">Project4</option>
-										</select>
+										<div class="col-sm-3">
+											<div class="checkbox">
+												<label><input type="checkbox" value="region" name="list[]">Region</label>
+											</div>
+
+										</div>
+										<div class="col-sm-6">
+											<select class="chosen form-control"
+												data-placeholder="Choose a Inventry Type" name="select_list_region"
+												id="inventry_type">
+												<option value="%">--Select All Region--</option>
+												<?php 
+												foreach (getStateList() as $modal){
+												    echo '<option value="'.$modal['modal_name'].'">'.$modal['modal_name'].'</option>';
+												}
+												?>
+											</select>
+										</div>
+										<div class="col-sm-3">
+											<select class="chosen form-control"
+												data-placeholder="Choose a Inventry Type" name="select_flag_region"
+												id="inventry_type">
+												<option value="OR">OR</option>
+												<option value="AND" >AND</option>
+											</select>
+										</div>
 									</div>
 								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Select Operator:</label>
+									<div class="col-sm-9">
+										<div class="col-sm-3">
+											<div class="checkbox">
+												<label><input type="checkbox" value="oper" name="list[]">Operator</label>
+											</div>
+
+										</div>
+										<div class="col-sm-6">
+											<select class="chosen form-control"
+												data-placeholder="Choose a Inventry Type" name="select_list_oper"
+												id="inventry_type">
+												<option value="%">--Select All Operator--</option>
+												<?php 
+												foreach (getOperatorList() as $modal){
+												    echo '<option value="'.$modal['modal_name'].'">'.$modal['modal_name'].'</option>';
+												}
+												?>
+											</select>
+										</div>
+										<div class="col-sm-3">
+											<select class="chosen form-control"
+												data-placeholder="Choose a Inventry Type" name="select_flag_oper"
+												id="inventry_type">
+												<option value="OR">OR</option>
+												<option value="AND" >AND</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Select Filters:</label>
+									<div class="col-sm-9">
+										<div class="col-sm-3">
+											<div class="checkbox">
+												<label><input type="checkbox" value="filter" name="list[]">Filters</label>
+											</div>
+
+										</div>
+										<div class="col-sm-6">
+											<select class="chosen form-control"
+												data-placeholder="Choose a Inventry Type" name="select_list_filter"
+												id="inventry_type">
+												<option value="%">--Select All Filters--</option>
+													<?php 
+													foreach (getFilterList() as $modal){
+												    echo '<option value="'.$modal['modal_name'].'">'.$modal['modal_name'].'</option>';
+												}
+												?>
+											</select>
+										</div>
+										<div class="col-sm-3">
+											<select class="chosen form-control"
+												data-placeholder="Choose a Inventry Type" name="select_flag_filter"
+												id="inventry_type">
+												<option value="OR">OR</option>
+												<option value="AND" >AND</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Select IMEI:</label>
+									<div class="col-sm-9">
+										<div class="col-sm-3">
+											<div class="checkbox">
+												<label><input type="checkbox" value="imei" name="list[]" >IMEI</label>
+											</div>
+
+										</div>
+										<div class="col-sm-6">
+
+											<div class="col-sm-9">
+												<textarea rows="6" cols="40"
+													style="border: solid lightgrey 1px;" name="IMEI"></textarea>
+											</div>
+										</div>
+										<div class="col-sm-3"></div>
+									</div>
+								</div>
+
+
 
 								<div class="form-group">
 									<label class="col-sm-3 control-label">Campaign Duration</label>
@@ -63,24 +203,27 @@
 											class="input-daterange input-group input-group-icon-click"
 											id="datepicker5">
 											<input type="text" class=" form-control" name="start"
-												value="<?php echo date("m/d/Y") ?>"> <span class="input-group-addon">to</span>
-											<input type="text" class="form-control" name="end"
+												value="<?php echo date("m/d/Y") ?>"> <span
+												class="input-group-addon">to</span> <input type="text"
+												class="form-control" name="end"
 												value="<?php echo date("m/d/Y" , strtotime( date("m/d/Y"). ' +1 month')) ?>">
 										</div>
 									</div>
 								</div>
-								<div class="form-group">
-									<label class="col-sm-3 control-label">IMEI list</label>
-									<div class="col-sm-9">
-										<textarea rows="6" cols="40"
-											style="border: solid lightgrey 1px;"
-											name="IMEI"></textarea>
-									</div>
-								</div>
+								<div class="form-group"></div>
 								<div class="form-group">
 									<label class="col-sm-3 control-label"> Select APK</label>
 									<div class="col-sm-9">
-										<input id="input-709" name="input-709" type="file" class="file-loading">
+										<input type="hidden" name="filename" class="form-control"
+											id="apkname" /> <span
+											class="btn btn-success fileinput-button"> <i
+											class="glyphicon glyphicon-plus"></i> <span>Select files...</span>
+											<!-- The file input field used as target for the file upload widget -->
+											<input id="fileupload" type="file" name="files[]" multiple>
+										</span> <span id="files"></span> <br> <br>
+										<div id="progress" class="progress">
+											<div class="progress-bar progress-bar-success"></div>
+										</div>
 									</div>
 								</div>
 								<div class="form-group">
@@ -97,11 +240,16 @@
 									</div>
 								</div>
 								<div class="form-group">
+									<label class="col-sm-3 control-label"> Notification Banner</label>
+									<div class="col-sm-9">
+										<input name="banner" type="file" class="file-loading">
+									</div>
+								</div>
+								<div class="form-group">
 									<label class="col-sm-3 control-label">Notification Description</label>
 									<div class="col-sm-9">
 										<textarea rows="6" cols="40"
-											style="border: solid lightgrey 1px;"
-											name="noti_desc"></textarea>
+											style="border: solid lightgrey 1px;" name="noti_desc"></textarea>
 									</div>
 								</div>
 								<div class="form-group">
@@ -110,8 +258,8 @@
 										<input name="icon" type="file" class="file-loading">
 									</div>
 								</div>
-								
-								
+
+
 
 								<div class="form-group">
 									<label class="col-sm-3 control-label"></label>

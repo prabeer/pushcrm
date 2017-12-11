@@ -85,7 +85,7 @@
 											data-placeholder="Choose a Inventry Type"
 											style="width: 240px;" name="cmd_list" id="inventry_type">
 											<option value="">select</option>
-											<option value="GPL">Get Package List</option>
+											<option value="GAD">Get All Data</option>
 											<option value="LA" disabled>Launch App</option>
 											<option value="RM" disabled>Reboot Mobile</option>
 											<option value="Cust" disabled>Custom</option>

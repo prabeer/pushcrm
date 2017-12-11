@@ -6,8 +6,8 @@
 
 <!-- *****DEMO THEME CONFIG****** -->
 <?php
-if (($uri_check == $ar.'INDEX.PHP')||($uri_check == $ar.'ADVERT_DASHBOARD.PHP')) {
-	?>
+if (($uri_check == $ar . 'INDEX.PHP') || ($uri_check == $ar . 'ADVERT_DASHBOARD.PHP')) {
+    ?>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/metisMenu.js"></script>
@@ -34,7 +34,7 @@ if (($uri_check == $ar.'INDEX.PHP')||($uri_check == $ar.'ADVERT_DASHBOARD.PHP'))
 
 <?php
 } elseif (($uri_check == $ar . 'PROJECTLIST.PHP')) {
-	?>
+    ?>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/metisMenu.js"></script>
@@ -51,7 +51,7 @@ if (($uri_check == $ar.'INDEX.PHP')||($uri_check == $ar.'ADVERT_DASHBOARD.PHP'))
 
 <?php
 } elseif ($uri_check == $ar . 'CREATEPROJECT.PHP') {
-	?>
+    ?>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/metisMenu.js"></script>
@@ -90,14 +90,16 @@ if (($uri_check == $ar.'INDEX.PHP')||($uri_check == $ar.'ADVERT_DASHBOARD.PHP'))
         });
     </script>
 <?php
-}elseif ($uri_check == $ar . 'INSTALLAPK.PHP') {
-	?>
+} elseif ($uri_check == $ar . 'INSTALLAPK.PHP') {
+    ?>
 <script src="assets/js/jquery.js"></script>
+<script
+	src="https://blueimp.github.io/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
+<script
+	src="https://blueimp.github.io/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
+<script
+	src="https://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload.js"></script>
 <script src="assets/js/bootstrap.js"></script>
-<script src="plugins/fileupload/js/pluginscanvas-to-blob.min.js" type="text/javascript"></script>
-<script src="plugins/fileupload/js/plugins/sortable.min.js" type="text/javascript"></script>
-<script src="plugins/fileupload/js/plugins/purify.min.js" type="text/javascript"></script>
-<script src="plugins/fileupload/js/fileinput.min.js"></script>
 <script src="assets/js/metisMenu.js"></script>
 <script src="assets/js/imagesloaded.js"></script>
 <script src="assets/js/masonry.js"></script>
@@ -112,10 +114,75 @@ if (($uri_check == $ar.'INDEX.PHP')||($uri_check == $ar.'ADVERT_DASHBOARD.PHP'))
 <script src="assets/js/forms-bootstrap-datepicker.js"></script>
 <script src="assets/js/forms-wysihtml5.js"></script>
 <script src="assets/js/validation.js"></script>
+<script>
+/*jslint unparam: true */
+/*global window, $ */
+$(function () {
+    'use strict';
+    // Change this to the location of your server-side upload handler:
+    var url =  'uploadFile.php';
+    $('#fileupload').fileupload({
+        
+        url: url,
+        maxChunkSize: 1000000,
+        dataType: 'json',
+        done: function (e, data) {
+               	
+            $.each(data.result.files, function (index, file) {
+                var filenamearr = file.name.split("_");
+                var filename = filenamearr[1];
+            	$('<p/>').text(filename).appendTo('#files');
+                $('#apkname').val(file.name)
+            });
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progress .progress-bar').css(
+                'width',
+                progress + '%'
+            );
+        }
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+
+    
+});
+</script>
+
+<script>
+        $(function () {
+            $("#inventry_type").on("change", function () {
+
+                var request = $.ajax({
+                    type: "POST",
+                    url: "Advert/listProjects.php",
+                    data: {inv: $("#inventry_type").val()},
+                    async: true,
+                    dataType: 'json',
+                    success: function (data) {
+                       
+                    	 var options = '';
+                         options += '<select class="chosen form-control" data-placeholder="Choose a Inventry Type" style="width: 240px;" name="select_list" id="inventry_type">';
+                         options += '<option value="">--Select List--</option>';
+                         for (var x = 0; x < data.length; x++) {
+                             options += '<option value="' + data[x].modal_name + '">' + data[x].modal_name + '</option>';
+                         }
+                         options += '</select>';
+                         var $el = $("#cat_drop");
+                         $el.empty(); // remove old options
+
+                         $('#cat_drop').html(options);
+                    }
+
+                });
+            });
+        });
+    </script>
 
 
-<?php } elseif (($uri_check == $ar . 'CREATEPROJECT2.PHP') || ($uri_check == $ar . 'MODIFYPROJECT2.PHP')) {
-	?>
+<?php
+} elseif (($uri_check == $ar . 'CREATEPROJECT2.PHP') || ($uri_check == $ar . 'MODIFYPROJECT2.PHP')) {
+    ?>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/metisMenu.js"></script>
@@ -231,7 +298,7 @@ if (($uri_check == $ar.'INDEX.PHP')||($uri_check == $ar.'ADVERT_DASHBOARD.PHP'))
     </script>
 <?php
 } elseif (($uri_check == $ar . 'CREATEPROJECT3.PHP') || ($uri_check == $ar . 'MODIFYPROJECT3.PHP')) {
-	?>
+    ?>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/metisMenu.js"></script>
@@ -315,11 +382,11 @@ if (($uri_check == $ar.'INDEX.PHP')||($uri_check == $ar.'ADVERT_DASHBOARD.PHP'))
                     type: "POST",
                     url: "userMgr/addUser.php",
                     data: {group_name: $("#group_name").val(), group_type: $("#group_type").val(), user_name: $("#user_name").val(), project_id: "<?php
-	if (isset ( $_SESSION ['project_id'] )) {
-		echo $_SESSION ['project_id'];
-	}
-	;
-	?>"},
+    if (isset($_SESSION['project_id'])) {
+        echo $_SESSION['project_id'];
+    }
+    ;
+    ?>"},
                     async: true,
                     dataType: 'json',
                     success: function (data) {
@@ -337,7 +404,7 @@ if (($uri_check == $ar.'INDEX.PHP')||($uri_check == $ar.'ADVERT_DASHBOARD.PHP'))
 
 <?php
 } elseif ($uri_check == $ar . 'MODIFYPROJECT.PHP') {
-	?>
+    ?>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/metisMenu.js"></script>
@@ -355,7 +422,7 @@ if (($uri_check == $ar.'INDEX.PHP')||($uri_check == $ar.'ADVERT_DASHBOARD.PHP'))
 
 <?php
 } elseif (($uri_check == $ar . 'ADDNEWUSER.PHP') || ($uri_check == $ar . 'ASSIGNRIGHTS.PHP') || ($uri_check == $ar . 'ADDNEWGROUP.PHP') || ($uri_check == $ar . 'MODPROJECT.PHP')) {
-	?>
+    ?>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/metisMenu.js"></script>
@@ -536,7 +603,7 @@ if (($uri_check == $ar.'INDEX.PHP')||($uri_check == $ar.'ADVERT_DASHBOARD.PHP'))
     </script>
 <?php
 } elseif (($uri_check == $ar . 'PROJECTDETAILS.PHP') || ($uri_check == $ar . 'TESTCASEDETAILS.PHP')) {
-	?>
+    ?>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/metisMenu.js"></script>
@@ -559,7 +626,7 @@ if (($uri_check == $ar.'INDEX.PHP')||($uri_check == $ar.'ADVERT_DASHBOARD.PHP'))
 <script src="assets/js/project.js"></script>
 <?php
 } elseif (($uri_check == $ar . 'USERDETAIL.PHP') || $uri_check == $ar . 'GROUPDETAILS.PHP') {
-	?>
+    ?>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/metisMenu.js"></script>
@@ -577,7 +644,7 @@ if (($uri_check == $ar.'INDEX.PHP')||($uri_check == $ar.'ADVERT_DASHBOARD.PHP'))
 <script src="assets/js/member.js"></script>
 <?php
 } elseif ($uri_check == $ar . 'USERLIST.PHP') {
-	?>
+    ?>
 
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.js"></script>
@@ -595,7 +662,7 @@ if (($uri_check == $ar.'INDEX.PHP')||($uri_check == $ar.'ADVERT_DASHBOARD.PHP'))
 
 <?php
 } elseif ($uri_check == $ar . 'USERMESSAGES.PHP') {
-	?>
+    ?>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/metisMenu.js"></script>
@@ -612,7 +679,7 @@ if (($uri_check == $ar.'INDEX.PHP')||($uri_check == $ar.'ADVERT_DASHBOARD.PHP'))
 
 <?php
 } elseif ($uri_check == $ar . 'ACTIVITYLOGS.PHP') {
-	?>
+    ?>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/metisMenu.js"></script>
@@ -626,7 +693,7 @@ if (($uri_check == $ar.'INDEX.PHP')||($uri_check == $ar.'ADVERT_DASHBOARD.PHP'))
 <script src="assets/js/demo.js"></script>
 <?php
 } elseif ($uri_check == $ar . 'BUGLISTOLD.PHP') {
-	?>
+    ?>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/metisMenu.js"></script>
@@ -687,7 +754,7 @@ if (($uri_check == $ar.'INDEX.PHP')||($uri_check == $ar.'ADVERT_DASHBOARD.PHP'))
 
 <?php
 } elseif ($uri_check == $ar . 'BUGLIST.PHP') {
-	?>
+    ?>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/metisMenu.js"></script>
@@ -784,7 +851,7 @@ if (($uri_check == $ar.'INDEX.PHP')||($uri_check == $ar.'ADVERT_DASHBOARD.PHP'))
 
 <?php
 } elseif (($uri_check == $ar . 'TESTCASELIST.PHP') || ($uri_check == $ar . 'PROJECTTESTCASE.PHP')) {
-	?>
+    ?>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/metisMenu.js"></script>
@@ -936,7 +1003,7 @@ if (($uri_check == $ar.'INDEX.PHP')||($uri_check == $ar.'ADVERT_DASHBOARD.PHP'))
 
 <?php
 } elseif ($uri_check == $ar . 'DRIVE.PHP') {
-	?>
+    ?>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/metisMenu.js"></script>
@@ -952,7 +1019,7 @@ if (($uri_check == $ar.'INDEX.PHP')||($uri_check == $ar.'ADVERT_DASHBOARD.PHP'))
 
 <?php
 } elseif ($uri_check == $ar . 'TODOLIST.PHP') {
-	?>
+    ?>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/metisMenu.js"></script>
@@ -969,7 +1036,7 @@ if (($uri_check == $ar.'INDEX.PHP')||($uri_check == $ar.'ADVERT_DASHBOARD.PHP'))
 
 <?php
 } elseif ($uri_check == $ar . 'CALENDAR.PHP') {
-	?>
+    ?>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/metisMenu.js"></script>
@@ -987,7 +1054,7 @@ if (($uri_check == $ar.'INDEX.PHP')||($uri_check == $ar.'ADVERT_DASHBOARD.PHP'))
 
 <?php
 } elseif ($uri_check == $ar . 'TESTCASEUPLOADER.PHP') {
-	?>
+    ?>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/metisMenu.js"></script>
@@ -1008,7 +1075,7 @@ if (($uri_check == $ar.'INDEX.PHP')||($uri_check == $ar.'ADVERT_DASHBOARD.PHP'))
 <script src="assets/js/dropzone-demo.js"></script>
 <?php
 } elseif ($uri_check == $ar . 'PROJECTDISCUSSIONS.PHP') {
-	?>
+    ?>
 
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.js"></script>
@@ -1026,7 +1093,7 @@ if (($uri_check == $ar.'INDEX.PHP')||($uri_check == $ar.'ADVERT_DASHBOARD.PHP'))
 <script src="assets/js/demo.js"></script>
 <?php
 } elseif ($uri_check == $ar . 'PROJECTINVENTRYLIST.PHP') {
-	?>
+    ?>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/metisMenu.js"></script>
@@ -1044,7 +1111,7 @@ if (($uri_check == $ar.'INDEX.PHP')||($uri_check == $ar.'ADVERT_DASHBOARD.PHP'))
 <script src="assets/js/invoices.js"></script>
 <?php
 } elseif ($uri_check == $ar . 'PROJECTINVENTRY.PHP') {
-	?>
+    ?>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/metisMenu.js"></script>
@@ -1062,7 +1129,7 @@ if (($uri_check == $ar.'INDEX.PHP')||($uri_check == $ar.'ADVERT_DASHBOARD.PHP'))
 <script src="assets/js/forms-chosen.js"></script>
 <?php
 } elseif ($uri_check == $ar . 'REPORTS.PHP') {
-	?>
+    ?>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/metisMenu.js"></script>
@@ -1096,7 +1163,7 @@ if (($uri_check == $ar.'INDEX.PHP')||($uri_check == $ar.'ADVERT_DASHBOARD.PHP'))
     </script>
 <?php
 } elseif ($uri_check == $ar . 'INVENTRYMANAGER.PHP') {
-	?>
+    ?>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/metisMenu.js"></script>
@@ -1267,8 +1334,45 @@ if (($uri_check == $ar.'INDEX.PHP')||($uri_check == $ar.'ADVERT_DASHBOARD.PHP'))
 
     </script>
 <?php
+} elseif ($uri_check == $ar . 'DATA_FILTER.PHP') {
+    ?>
+<script src="assets/js/jquery.js"></script>
+<script src="assets/js/bootstrap.js"></script>
+<script src="assets/js/tokenize2.js"></script>
+<script src="assets/js/metisMenu.js"></script>
+<script src="assets/js/imagesloaded.js"></script>
+<script src="assets/js/masonry.js"></script>
+<script src="assets/js/pace.js"></script>
+<script src="assets/js/jquery-todo-list.js"></script>
+<script src="assets/js/tether.js"></script>
+<script src="assets/js/tether-shepherd.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/tour.js"></script>
+<script src="assets/js/demo.js"></script>
+<script src="assets/js/todo-list.js"></script>
+<script type="text/javascript">
+$(function () {
+	$('.city').tokenize2({
+		  dataSource: 'Advert/filter_pages/city.php',
+		  placeholder: 'Search City' 
+		});
+	$('.oper').tokenize2({
+		  dataSource: 'Advert/filter_pages/operator.php',
+		  placeholder: 'Search Operator' 
+		});
+	$('.lang').tokenize2({
+		  dataSource: 'Advert/filter_pages/language.php',
+		  placeholder: 'Search Language' 
+		});
+	$('.pkg').tokenize2({
+		  dataSource: 'Advert/filter_pages/package.php',
+		  placeholder: 'Search Package' 
+		});
+});
+</script>
+<?php
 } else {
-	?>
+    ?>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/metisMenu.js"></script>

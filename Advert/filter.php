@@ -35,11 +35,93 @@
 												<thead>
 													<tr>
 														<th>Service Name</th>
-														<th>Condition</th>
+														<th>Condition1</th>
+														<th>Condition2</th>
 													</tr>
 												</thead>
 												<tbody>
+													<tr>
+														<td>
+															<p>Locations</p>
+														</td>
+														<td><select class="city" multiple name="city">
 
+														</select></td>
+														<td>NA</td>
+
+
+													</tr>
+													<tr>
+														<td>
+															<p>Network operator</p>
+														</td>
+														<td><select class="oper" multiple name="operator">
+
+														</select></td>
+														<td>NA</td>
+
+													</tr>
+													<tr>
+														<td>
+															<p>Network Type</p>
+														</td>
+														<td><input type="checkbox" name="network_type"
+															value="WiFi" />WiFi, <input type="checkbox"
+															name="network_type" value="3G" />3G, <input
+															type="checkbox" name="network_type" value="4G" />4G</td>
+														<td>NA</td>
+
+													</tr>
+													<tr>
+														<td>
+															<p>Language</p>
+														</td>
+														<td><select class="lang" multiple name="language">
+
+														</select></td>
+														<td>NA</td>
+
+													</tr>
+													<tr>
+														<td>
+															<p>SIM Roaming status</p>
+														</td>
+														<td><input type="radio" name="sim_roaming" value="roaming" />Roaming,
+															<input type="radio" name="sim_roaming" value="local" />Local
+														</td>
+														<td>NA</td>
+
+													</tr>
+													<tr>
+														<td>
+															<p>Package List</p>
+														</td>
+														<td><select class="pkg" multiple name="package">
+
+														</select></td>
+														<td>NA</td>
+
+													</tr>
+													<tr>
+														<td>
+															<p>Package Launch/Close</p>
+														</td>
+														<td><select class="pkg" multiple name="package">
+
+														</select></td>
+
+														<td>
+														<div class="col-sm-3"></div>
+														<div class="col-sm-3">
+																<input type="text" name="st_range_pkg"
+																	class="form-control">
+															</div>
+															<div class="col-sm-3">
+																<input type="text" name="ed_range_pkg"
+																	class="form-control">
+															</div></td>
+
+													</tr>
 												</tbody>
 											</table>
 

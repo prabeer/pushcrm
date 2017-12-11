@@ -17,7 +17,7 @@ class database {
 	public static $path;
 	private $dbarray = array (
 			'dbdriver' => 'mysql',
-			'dbhost' => '127.0.0.1',
+			'dbhost' => 'localhost',
 			'dbname',
 			'dbuser',
 			'dbpass' 

@@ -1,211 +1,117 @@
 <?php
 include_once 'includes/database2.php';
 include_once 'constants.php';
-$db = new database ( 'EDIT' );
+$db = new database('EDIT');
 $update = "yes";
-$json = file_get_contents ( 'php://input' );
-$obj = json_decode ( $json );
-$json .= '|' . date ( "Y-m-d H:i:s" );
+$json = file_get_contents('php://input');
+$obj = json_decode($json);
+// var_dump($json);
+$json .= '|' . date("Y-m-d H:i:s");
 // print_r($obj);
-$myfile = file_put_contents ( 'Advert/uploads/logs.txt', $json . PHP_EOL, FILE_APPEND | LOCK_EX );
+$myfile = file_put_contents('Advert/uploads/logs.txt', $json . PHP_EOL, FILE_APPEND | LOCK_EX);
 
-if (isset ( $obj->IM )) {
-	$im = $obj->IM;
+if (isset($obj->IM)) {
+    $im = $obj->IM;
 } else {
-	$im = "";
+    $im = "";
 }
-if (isset ( $obj->st )) {
-	$st = $obj->st;
+if (isset($obj->st)) {
+    $st = $obj->st;
 } else {
-	$st = "";
+    $st = "";
 }
-if (isset ( $obj->loc )) {
-	$loc = $obj->loc;
+if (isset($obj->loc)) {
+    $loc = $obj->loc;
 } else {
-	$loc = "";
+    $loc = "";
 }
-if (isset ( $obj->mcc )) {
-	$mcc = $obj->mcc;
+if (isset($obj->mcc)) {
+    $mcc = $obj->mcc;
 } else {
-	$mcc = "";
+    $mcc = "";
 }
-if (isset ( $obj->cel )) {
-	$cel = $obj->cel;
+if (isset($obj->cel)) {
+    $cel = $obj->cel;
 } else {
-	$cel = "";
+    $cel = "";
 }
-if (isset ( $obj->dvc )) {
-	$modal = $obj->dvc;
+if (isset($obj->dev)) {
+    $modal = $obj->dev;
 } else {
-	$modal = "";
+    $modal = "";
+}
+if (isset($obj->ver)) {
+    $app_ver = $obj->ver;
+} else {
+    $app_ver = "";
 }
 $status = "";
-if (isset ( $obj->camp_id )) {
-	$camp_id = $obj->camp_id;
+if (isset($obj->camp_id)) {
+    $camp_id = $obj->camp_id;
 }
-if (isset ( $obj->dt )) {
-	$data = $obj->dt;
+if (isset($obj->dt)) {
+    $data = $obj->dt;
 }
 $f = "";
 
 $query = "insert into polling (IMEI, TimeStamp, status, gps_loc, mcc_mnc, cell_id, modal_name) values (:IMEI, now(),:status,:gps_loc,:mcc_mnc, :cell_id, :modal);";
-$data = array (
-		"IMEI" => $im,
-		"status" => $st,
-		"gps_loc" => $loc,
-		"mcc_mnc" => $mcc,
-		"cell_id" => $cel,
-		"modal" => $modal
+$data = array(
+    "IMEI" => $im,
+    "status" => $st,
+    "gps_loc" => $loc,
+    "mcc_mnc" => $mcc,
+    "cell_id" => $cel,
+    "modal" => $modal
 );
-$qr = $db->query_result ( $query, $data );
+$qr = $db->query_result($query, $data);
 
+$query = "update imei_table SET last_update = now(), gps_loc = :gps_loc, mcc_mnc = :mcc_mnc, cell_id = :cell_id, modal_name = :modal, app_ver = :app_ver where imei = :imei ;";
+$mdl_arr = explode("|", $modal);
+$modal = $mdl_arr[0];
+$data1 = array(
+    "imei" => $im,
+    "gps_loc" => $loc,
+    "mcc_mnc" => $mcc,
+    "cell_id" => $cel,
+    "modal" => $modal,
+    "app_ver" => $app_ver
+);
+$qr = $db->query_result($query, $data1);
+// print_r($data1);
 // echo $qr;
-// print_r($data);
-if ($qr == 1) {
-	$db_select = new database ( 'VIEW' );
-	$pkg_stat = explode ( "|", $obj->st );
-	// echo "pre:".$pkg_stat;
-	if ($obj->st == 'polling') {
-		// ***************polling****************//
-		include_once 'mob/polling.php';
-	} elseif ($obj->st == 'NotiReceived') {
-		// ***************Receiver****************//
-		$status = "Notified";
-		$f = 'NotPollig';
-			$condition = array (
-				'campaign_id' => $camp_id,
-				'IMEI' => $im,
-				'status' => $status 
-		);
-		$query = "UPDATE `campaign_IMEI` SET `status` = :status, `Last_update` = now() WHERE `IMEI` = :IMEI and campaign_id = :campaign_id;";
-		$r = $db->query_result ( $query, $condition );
-	} elseif ($obj->st == 'inscnf') {
-		// ***************Install****************//
-		$query = "SELECT 
-    `IMEI`,
-    `campaign_id`,
-    `status`,
-    `Last_update`,
-    `method_type`,
-    `select_list`,
-    `start_date`,
-    `end_date`,
-    `Apk_Location`,
-    `Noti_Description`,
-    `Entry_date`,
-    `campaign_name`,
-    `campaign_type`,
-    `Noti_Heading`,
-    `Noti_Icon`,
-    `Noti_Intent`,
-    `Apk_Package`,
-    `Noti_Banner`,
-    `Noti_Type`
-FROM
-    `campaigns`
-WHERE
-    start_date <= NOW()
-        AND end_date >= NOW()
-        AND IMEI = :IMEI
-		AND campaign_id = :campaign_id;		
-ORDER BY start_date ASC;";
-		$condition = array (
-				"IMEI" => $obj->IM,
-				"campaign_id" => $obj->camp_id 
-		);
-		$r = $db_select->query_result ( $query, $condition );
-		$apk_name = $r [0] ['Apk_Location'];
-		$apk_pkg = $r [0] ['Apk_Package'];
-		$loc = $upload_folder . $apk_name;
-		$res = array (
-				"status" => "installApp",
-				"data" => "http://" . $loc ."|" .$apk_pkg 
-		);
-		$status = "installReq";
-		$f = 'NotPollig';
-		echo json_encode ( $res );
-	} elseif ($obj->st == 'Cancel') {
-		$status = "installCancel";
-		// ***************Cancel****************//
-		$f = 'NotPollig';
-		$res = array (
-				"status" => "Ok",
-				"data" => "", 
-				"camp_id"=>"1"
-		);
-		echo json_encode ( $res );
-	} elseif ($obj->st == 'cmdrst') {
-		$datalist = json_decode ( $data );
-	} elseif ($pkg_stat [0] == "pkgs") {
-		
-		$pkg = json_decode ( $pkg_stat [1] );
-		$i = 0;
-		foreach ( $pkg as $s ) {
-			$IMEI = $im;
-			$package = $s->pkg;
-			$version_name = $s->vrn;
-			$version_num = $s->vno;
-			$ins_location = $s->inl;
-			$ins_time = $s->int;
-			$lst_update = $s->lnt;
-			$query = "SELECT IMEI, package, version_name, version_num, install_status FROM imei_wise_package_list where IMEI = :IMEI and package = :package and version_name = :version_name and version_num = :version_num and install_status = 'install';";
-			$condition = array (
-					'IMEI' => xssafe($IMEI),
-					'package' => xssafe($package),
-					'version_name' => xssafe($version_name),
-					'version_num' => xssafe($version_num) 
-			);
-			$res_select = $db_select->query_result($query,$condition);
-			if(empty($res_select)){
-				$query = "insert into imei_wise_package_list (IMEI, package, version_name, version_num, install_status, update_date, ins_location, ins_time, lst_update) values (:IMEI, :package, :version_name, :version_num,'install',now(), :ins_location, :ins_time, :lst_update);";
-				$condition = array (
-						'IMEI' => xssafe($IMEI),
-						'package' => xssafe($package),
-						'version_name' => xssafe($version_name),
-						'version_num' => xssafe($version_num),
-						'ins_location' => xssafe($ins_location),
-						'ins_time' => $ins_time,
-						'lst_update' => $lst_update						
-				);
-				$res = $db->query_result($query,$condition);
-			}
-		}
-		// print_r($pkg->a0->pkg);
-		// echo $pkg_stat ;
-		$status = "rcvd";
-		$condition = array (
-				'campaign_id' => $camp_id,
-				'IMEI' => $im,
-				'status' => $status 
-		);
-		// print_r($condition);
-		$query = "UPDATE `campaign_IMEI` SET `status` = :status, `Last_update` = now() WHERE `IMEI` = :IMEI and campaign_id = :campaign_id;";
-		$r = $db->query_result ( $query, $condition );
-	} else {
-		$status = $obj->st;
-		$f = 'NotPollig';
-		$res = array (
-				"status" => "Ok",
-				"data" => "",
-				"camp_id"=>"1"		
-		);
-		echo json_encode ( $res );
-	}
-	
-	if ($f == 'NotPollig') {
-		$condition = array (
-				'campaign_id' => $camp_id,
-				'IMEI' => $im,
-				'status' => $status 
-		);
-		// print_r($condition);
-		$query = "UPDATE `campaign_IMEI` SET `status` = :status, `Last_update` = now() WHERE `IMEI` = :IMEI and campaign_id = :campaign_id;";
-		$r = $db->query_result ( $query, $condition );
-		if ($r == 1) {
-		}
-	}
-	$db->conn_close ();
-	$db_select->conn_close ();
+if ($qr < 1) {
+    $query = "insert into imei_table (imei, last_update, gps_loc, mcc_mnc, cell_id, modal_name, app_ver) values (:imei, now(),:gps_loc,:mcc_mnc, :cell_id, :modal, :app_ver);";
+    $data1 = array(
+        "imei" => $im,
+        "gps_loc" => $loc,
+        "mcc_mnc" => $mcc,
+        "cell_id" => $cel,
+        "modal" => $modal,
+        "app_ver" => $app_ver
+    );
+    $qr = $db->query_result($query, $data1);
 }
+
+$db_select = new database('VIEW');
+$pkg_stat = explode("|", $st);
+
+switch ($st) {
+    case polling:
+        include_once 'mob/polling.php';
+        break;
+    case InsCnf:
+        include_once 'mob/cnfInstall.php';
+        break;
+    case InsBanCnf:
+        include_once 'mob/cnfInstall.php';
+        break;
+    default:
+        include_once 'mob/updateStatus.php';
+}
+// echo "pre:".$pkg_stat;
+
+$db->conn_close();
+$db_select->conn_close();
+
 
 //{"IM":"351372098243494","st":"NotiReceived"}

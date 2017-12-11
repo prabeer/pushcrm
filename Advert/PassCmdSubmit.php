@@ -60,7 +60,7 @@ if ($res == 1) {
 	if (count_chars ( $imei ) > 1) {
 		$imei_list = explode ( ',', str_replace ( " ", "", $imei ) );
 		foreach ( $imei_list as $im ) {
-			$query = "INSERT INTO campaign_IMEI (IMEI, campaign_id, status) value (:IMEI, :campaign_id,'start');";
+			$query = "INSERT INTO campaign_imei (IMEI, campaign_id, status) value (:IMEI, :campaign_id,'start');";
 			$condition = array (
 					'IMEI' => $im,
 					'campaign_id' => $camp_id 

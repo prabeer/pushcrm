@@ -4,7 +4,7 @@
     <header class="header">
         <div class="branding float-left">
             <h1 class="logo text-center">
-                <a href="index.php"><span class="nav-label"> PUSH<span
+                <a href="index.php"><span class="nav-label">CM & AM<span
                            
                     </span> </a>
             </h1>
