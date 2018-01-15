@@ -1,7 +1,7 @@
 <?php
 ob_start ();
 include_once 'includes/functions.php';
-include_once 'includes/database2.php';
+include_once 'includes/database/database2.php';
 include_once 'includes/sessionV2.php';
 include_once 'XLSXWriter/xlsxwriter.class.php';
 $session = new session ();

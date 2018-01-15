@@ -75,7 +75,7 @@ class session {
 		$host = 'localhost';
 		$user = 'root';
 		$pass = '';
-		$name = 'secure_sessions';
+		$name = 'camp_mgmt';
 		$mysqli = new mysqli ( $host, $user, $pass, $name );
 		if ($mysqli->connect_error) {
     die("Connection failed: " . $conn->connect_error);

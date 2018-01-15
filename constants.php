@@ -1,13 +1,13 @@
 <?php 
-$server_host = '192.168.43.180';
+$server_host = 'camp.panasonicarbo.com';
 $upload_folder = $server_host . '/pushapp/Advert/uploads/';
 $apk_folder = $server_host .'/pushapp/files/';
 $http_protocol = 'http://';
 
 // Cases for polling
 define ("polling","polling");
-define ("InsCnf", "InstYes");
-define ("InsBanCnf", "InstBanYes");
+define ("InsCnf", "inscnf");
+define ("InsBanCnf", "inscnf");
 $flag_array = array();
 
 

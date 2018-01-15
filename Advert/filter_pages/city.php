@@ -1,6 +1,6 @@
 
 <?php
-include_once '../../includes/database2.php';
+include_once '../../includes/database/database2.php';
 $search = $_GET['search'];
 $query = "SELECT city FROM city_list where upper(city) like upper('%".$search."%');";
 $db = new database ( "VIEW" );

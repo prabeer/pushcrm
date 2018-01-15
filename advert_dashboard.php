@@ -115,7 +115,7 @@ include_once 'head.php';?>
                         <section class="module module-projects-sales">
                             <div class="module-inner">
                                 <div class="module-heading">
-                                    <h3 class="module-title">Campaign Type wise Count</h3>
+                                    <h3 class="module-title">Unauthorized Downloads</h3>
                   
                                     <ul class="actions list-inline">
 
@@ -135,10 +135,10 @@ include_once 'head.php';?>
                                             <table class="table table-simple">
                                                 <thead>
                                                     <tr>
-                                                        <th class="number">Campaign Type</th>
-                                                        <th class="truncate">Success Count</th>
-                                                        <th class="truncate">Pending Count</th>
-                                                        <th class="truncate">Fail Count</th>
+                                                        <th class="number">Imei</th>
+                                                        <th class="truncate">Date and Time</th>
+                                                        <th class="truncate">From Package</th>
+                                                        <th class="truncate">Install APP</th>
 
                                                     </tr>
                                                 </thead>
@@ -147,6 +147,7 @@ include_once 'head.php';?>
 
                                                 </tbody>
                                             </table>
+                                            <p><a href="#">Download Report</a></p>
                                         </div>
 
 

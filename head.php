@@ -12,7 +12,7 @@ $session->start_session ( '_s', false );
 // $_SESSION ['username'] = 'Super Admin';
 
 include_once 'includes/functions.php';
-include_once 'includes/database2.php';
+include_once 'includes/database/database2.php';
 if (isset ( $_SESSION ['username'] )) {
 	if (is_empty ( $_SESSION ['username'] ) || is_empty ( $_SESSION ['userid'] )) {
 		$_SESSION ['username'] = "";

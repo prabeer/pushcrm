@@ -5,7 +5,7 @@ $session = new session ();
 // Set to true if using https
 $session->start_session ( '_s', false );
 include_once 'includes/functions.php';
-include_once 'includes/database2.php';
+include_once 'includes/database/database2.php';
 
 /*
  * User Status=

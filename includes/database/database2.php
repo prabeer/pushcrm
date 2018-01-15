@@ -1,5 +1,5 @@
 <?php
-include_once ('functions.php');
+include_once $_SERVER['DOCUMENT_ROOT'].('/pushapp/includes/functions.php');
 $uri = htmlentities ( $_SERVER ['REQUEST_URI'] );
 $u = explode ( '/', $uri );
 $uri = $u ['1'];
@@ -32,7 +32,7 @@ class database {
 	private static $Updatedb = 'UpdateDB.php';
 	
 	public static function init_path() {
-		self::$path = ROOTPATH."/".URI."/includes/";
+		self::$path = ROOTPATH."/".URI."/includes/database/";
 		return self::$path;
 	}
 	public function __construct($type) {

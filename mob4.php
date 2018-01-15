@@ -1,5 +1,5 @@
 <?php
-include_once 'includes/database2.php';
+include_once 'includes/database/database2.php';
 include_once 'constants.php';
 $db = new database ( 'EDIT' );
 $update = "yes";

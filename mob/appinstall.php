@@ -1,7 +1,7 @@
 <?php
 include_once 'constants.php';
 include_once 'mob/updateStatus.class.php';
-include_once 'includes/database2.php';
+include_once 'includes/database/database2.php';
 $apk_name = $a['Apk_Location'];
 $loc = $upload_folder . $apk_name;
 $apk_package = "";

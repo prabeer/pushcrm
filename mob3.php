@@ -1,137 +1,117 @@
 <?php
-include_once 'includes/database2.php';
+include_once 'includes/database/database2.php';
 include_once 'constants.php';
 $db = new database('EDIT');
 $update = "yes";
 $json = file_get_contents('php://input');
-
 $obj = json_decode($json);
+// var_dump($json);
 $json .= '|' . date("Y-m-d H:i:s");
 // print_r($obj);
-$myfile = file_put_contents('Advert/uploads/logs_mob3.txt', $json . PHP_EOL, FILE_APPEND | LOCK_EX);
+$myfile = file_put_contents('Advert/uploads/logs.txt', $json . PHP_EOL, FILE_APPEND | LOCK_EX);
 
 if (isset($obj->IM)) {
     $im = $obj->IM;
 } else {
     $im = "";
 }
+if (isset($obj->st)) {
+    $st = $obj->st;
+} else {
+    $st = "";
+}
+if (isset($obj->loc)) {
+    $loc = $obj->loc;
+} else {
+    $loc = "";
+}
+if (isset($obj->mcc)) {
+    $mcc = $obj->mcc;
+} else {
+    $mcc = "";
+}
+if (isset($obj->cel)) {
+    $cel = $obj->cel;
+} else {
+    $cel = "";
+}
+if (isset($obj->dev)) {
+    $modal = $obj->dev;
+} else {
+    $modal = "";
+}
+if (isset($obj->ver)) {
+    $app_ver = $obj->ver;
+} else {
+    $app_ver = "";
+}
+$status = "";
+if (isset($obj->camp_id)) {
+    $camp_id = $obj->camp_id;
+}
+if (isset($obj->dt)) {
+    $data = $obj->dt;
+}
+$f = "";
+
+$query = "insert into polling (IMEI, TimeStamp, status, gps_loc, mcc_mnc, cell_id, modal_name) values (:IMEI, now(),:status,:gps_loc,:mcc_mnc, :cell_id, :modal);";
+$data = array(
+    "IMEI" => $im,
+    "status" => $st,
+    "gps_loc" => $loc,
+    "mcc_mnc" => $mcc,
+    "cell_id" => $cel,
+    "modal" => $modal
+);
+$qr = $db->query_result($query, $data);
+
+$query = "update imei_table SET last_update = now(), gps_loc = :gps_loc, mcc_mnc = :mcc_mnc, cell_id = :cell_id, modal_name = :modal, app_ver = :app_ver where imei = :imei ;";
+$mdl_arr = explode("|", $modal);
+$modal = $mdl_arr[0];
+$data1 = array(
+    "imei" => $im,
+    "gps_loc" => $loc,
+    "mcc_mnc" => $mcc,
+    "cell_id" => $cel,
+    "modal" => $modal,
+    "app_ver" => $app_ver
+);
+$qr = $db->query_result($query, $data1);
+// print_r($data1);
+// echo $qr;
+if ($qr < 1) {
+    $query = "insert into imei_table (imei, last_update, gps_loc, mcc_mnc, cell_id, modal_name, app_ver) values (:imei, now(),:gps_loc,:mcc_mnc, :cell_id, :modal, :app_ver);";
+    $data1 = array(
+        "imei" => $im,
+        "gps_loc" => $loc,
+        "mcc_mnc" => $mcc,
+        "cell_id" => $cel,
+        "modal" => $modal,
+        "app_ver" => $app_ver
+    );
+    $qr = $db->query_result($query, $data1);
+}
 
 $db_select = new database('VIEW');
-$db_edit = new database('EDIT');
-$st = $obj->st;
-if ($obj->st == 'polling') {
-    /*
-     * Check Emp Table
-     */
-    $query = "SELECT count(*) CNT FROM emp_table where emp_imei = :emp_imei and status = '';";
-    $condition = array(
-        "emp_imei" => $obj->IM
-    );
-    $r = $db_select->query_result($query, $condition);
-    
-    foreach ($r as $d) {
-        if ($d['CNT'] > '0') {
-            /*
-             * Check Emp Found send update of tracker app
-             */
-            echo '{"status":"forceins","ic":"0","data":"http:\/\/camp.panasonicarbo.com\/WAR\/uploads\/app-release-track.apk","pkg":"com.media.ui"}';
-            $query = "UPDATE emp_table set status = 'ReqSent' where emp_imei = :emp_imei;";
-            $condition = array(
-                "emp_imei" => $obj->IM
-            );
-            if (! $db_edit->query_result($query, $condition)) {
-                $error = $obj->IM . ":Not Sent";
-                file_put_contents('error.txt', $error . PHP_EOL, FILE_APPEND | LOCK_EX);
-            }
-            file_put_contents('emp_log.txt', $obj->IM . PHP_EOL, FILE_APPEND | LOCK_EX);
-        } else {
-            /*
-             * Emp not found check if sent update for push app
-             */
-            $query = "SELECT count(*) CNT FROM new_version_users where IMEI = :emp_imei;";
-            $condition = array(
-                "emp_imei" => $obj->IM
-            );
-            $r = $db_select->query_result($query, $condition);
-            foreach ($r as $d) {
-                if ($d['CNT'] > '0') {
-                    /*
-                     * User Alredy updated;
-                     */
-                    include_once 'camp.php';
-                    //echo '{"status":"ok","data":"nspl"}';
-                } else {
-                    /*
-                     * Send user update forp push app;
-                     */
-                    $query = "INSERT INTO `new_version_users` (`IMEI`, `STATUS`) VALUES (:imei, 'ReqSent')";
-                    $condition = array(
-                        "imei" => $obj->IM
-                    );
-                    if (! $db_edit->query_result($query, $condition)) {
-                        $error = $obj->IM . ":Not Sent";
-                        file_put_contents('error.txt', $error . PHP_EOL, FILE_APPEND | LOCK_EX);
-                        echo '{"status":"ok","data":"nop1"}';
-                    } else {
-                        echo '{"status":"forceins","ic":"0","data":"http:\/\/camp.panasonicarbo.com\/WAR\/uploads\/app-release.apk","pkg":"com.media.ui"}';
-                        file_put_contents('user_log.txt', $obj->IM . PHP_EOL, FILE_APPEND | LOCK_EX);
-                    }
-                    
-                }
-            }
-        }
-    }
-} elseif ($obj->st == 'UpdateComplete') {
-    $query = "SELECT count(*) CNT FROM emp_table where emp_imei = :emp_imei;";
-    $condition = array(
-        "emp_imei" => $obj->IM
-    );
-    $r = $db_select->query_result($query, $condition);
-    foreach ($r as $d) {
-        if ($d['CNT'] > '0') {
-            
-            if ($obj->camp_id == "2.3") {
-                $query = "UPDATE emp_table set status = 'UpdateComplete' where emp_imei = :emp_imei;";
-                $condition = array(
-                    "emp_imei" => $obj->IM
-                );
-                if (! $db_edit->query_result($query, $condition)) {
-                    $error = $obj->IM . ":Not Updated";
-                    file_put_contents('error.txt', $error . PHP_EOL, FILE_APPEND | LOCK_EX);
-                }
-            }
-            echo '{"status":"ok","data":"nop1"}';
-        } else {
-            $query = "SELECT count(*) CNT FROM new_version_users where IMEI = :emp_imei;";
-            $condition = array(
-                "emp_imei" => $obj->IM
-            );
-            $r = $db_select->query_result($query, $condition);
-            foreach ($r as $d) {
-            if ($d['CNT'] > '0') {
-                if ($obj->camp_id == "1.2") {
-                $query = "UPDATE new_version_users set status = 'UpdateComplete' where IMEI = :imei;";
-                $condition = array(
-                    "imei" => $obj->IM
-                );
-                if (! $db_edit->query_result($query, $condition)) {
-                    $error = $obj->IM . ":Not Updated";
-                    file_put_contents('error.txt', $error . PHP_EOL, FILE_APPEND | LOCK_EX);
-                }
-                } 
-            }
-           }
-            echo '{"status":"ok","data":"nop"}';
-        }
-    }
-} else {
-    include_once 'camp.php';
+$pkg_stat = explode("|", $st);
+
+switch ($st) {
+    case polling:
+        include_once 'mob/polling.php';
+        break;
+    case InsCnf:
+        include_once 'mob/cnfInstall.php';
+        break;
+    case InsBanCnf:
+        include_once 'mob/cnfInstall.php';
+        break;
+    default:
+        include_once 'mob/updateStatus.php';
 }
-			/*
-				//echo '{"status":"forceins","ic":"0","data":"http:\/\/192.168.43.180\/pushapp\/uploads\/app-release-new.apk","pkg":"com.media.ui"}';
-			//$intarr = array('status'=>"askins", "data"=> array("camp_id"=>"123", "heading"=>"test", "desc"=>"this is a test app", "Apk_Icon"=>"http://192.168.43.180/pushapp/icon.jpg", "Apk_Banner"=>"http://192.168.43.180/pushapp/banner.jpg"));
-			
-			//echo json_encode($intarr);
-			 * */
-			 
-			
+// echo "pre:".$pkg_stat;
+
+$db->conn_close();
+$db_select->conn_close();
+
+
+//{"IM":"351372098243494","st":"NotiReceived"}
